@@ -11,7 +11,7 @@ This project deploys a personal **portfolio website** on **AWS Elastic Kubernete
 ---
 
 ## 📂 Project Structure
-![Project Structure Diagram](images/project-structure.png)
+![Project Structure Diagram](website/images/project-structure.png)
    
 
 
