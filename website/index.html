@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caysus Dilan Rodrigues</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            transition: background 0.5s ease;
+            position: relative;
+        }
+        .profile-circle {
+            width: 120px;
+            height: 120px;
+            border: 3px solid #e879f9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            background: white;
+        }
+        .profile-text {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+        .company-highlight {
+            border-radius: 12px;
+            padding: 12px;
+            margin: 20px 0;
+            transition: transform 0.2s ease;
+        }
+        .company-highlight:hover,
+        .company-highlight:active {
+            transform: translateY(-3px);
+        }
+        .email-box {
+            border-radius: 12px;
+            padding: 12px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+            transition: transform 0.2s ease;
+        }
+        .email-box:hover,
+        .email-box:active {
+            transform: translateY(-3px);
+        }
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            margin: 0 4px;
+        }
+        .social-icon:hover,
+        .social-icon:active {
+            transform: scale(1.1);
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 80px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -40px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+        .tooltip:hover .tooltiptext,
+        .tooltip:active .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .color-bar {
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 20px;
+            display: flex;
+        }
+        .color-segment {
+            flex: 1;
+        }
+        .leaf, .snowflake, .star {
+            position: absolute;
+            user-select: none;
+            pointer-events: none;
+        }
+        .leaf {
+            color: #4CAF50;
+            font-size: 20px;
+        }
+        .snowflake {
+            color: #fff;
+            font-size: 14px;
+        }
+        .star {
+            background-color: white;
+            border-radius: 50%;
+        }
+        .moon, .sun {
+            position: absolute;
+            border-radius: 50%;
+        }
+        .sun {
+            background: radial-gradient(circle at center, #FFD700, #FF4500);
+            box-shadow: 0 0 40px #FF4500;
+        }
+        .footer {
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .hanging-card {
+            animation: sway 4s ease-in-out infinite;
+            transform-origin: top center;
+        }
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            75% { transform: rotate(-1deg); }
+        }
+        .hanging-string {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, #666, transparent);
+            z-index: 0;
+        }
+        .hanging-hook {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 10px;
+            border: 2px solid #666;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            z-index: 0;
+        }
+        
+        /* Touch-friendly hover effects */
+        @media (hover: none) and (pointer: coarse) {
+            .company-highlight:active {
+                transform: translateY(-3px);
+            }
+            .email-box:active {
+                transform: translateY(-3px);
+            }
+            .social-icon:active {
+                transform: scale(1.1);
+            }
+        }
+        
+        /* Enhanced touch interactions */
+        .company-highlight,
+        .email-box,
+        .social-icon {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="background-effects"></div>
+    <div id="card" class="hanging-card" style="max-width: 400px; width: 100%; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); padding: 40px; text-align: center; position: relative; z-index: 1;">
+        <!-- Hanging Elements -->
+        <div class="hanging-hook"></div>
+        <div class="hanging-string"></div>
+        <!-- Header -->
+        <h1 id="header" style="font-size: 28px; font-weight: 700; margin-bottom: 30px; letter-spacing: -0.5px;">
+            Caysus Dilan Rodrigues
+        </h1>
+        <!-- Profile Circle -->
+        <div class="profile-circle" id="profile-circle">
+    <img src="website/images/me.png" alt="Caysus Rodrigues" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+</div>
+
+        <!-- Greeting -->
+        <p id="greeting" style="font-size: 20px; margin-bottom: 20px;">
+            hi 👋
+        </p>
+        <!-- Description -->
+        <p id="description" style="line-height: 1.6; margin-bottom: 16px; font-size: 15px;">
+            I'm caysus.  DevOps engineering and cloud computing are my things.
+        </p>
+        <!-- Quote -->
+        <p id="quote" style="line-height: 1.6; margin-bottom: 24px; font-style: italic; font-size: 15px;">
+            a friend once told me it was ridiculous to have a personal website. i agree.
+        </p>
+        <!-- Current Role -->
+        <div class="company-highlight" id="company-highlight">
+    <p style="font-size: 15px;">
+       Ex Intern @ <span style="font-weight: 600;" id="company-name">
+            <a href="https://niveussolutions.com/" style="color: inherit; text-decoration: none;" target="_blank">Niveus Solutions</a>
+        </span>
+        
+    </p>
+</div>
+
+        <!-- Email -->
+        <div class="email-box" id="email-box">
+            <a href="mailto:caysusdilanrodrigues@gmail.com" style="display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; color: inherit;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                say hello!
+            </a>
+        </div>
+        <!-- Social Icons -->
+        <div style="display: flex; justify-content: center; align-items: center; margin: 24px 0;">
+            <div class="tooltip">
+                <a href="#" class="social-icon" id="linkedin-icon" style="background: #0A66C2;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+                <span class="tooltiptext">LinkedIn</span>
+            </div>
+            <div class="tooltip">
+                <a href="#" class="social-icon" id="github-icon" style="background: #333;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                </a>
+                <span class="tooltiptext">GitHub</span>
+            </div>
+            <div class="tooltip">
+                <a href="path_to_your_resume.pdf" class="social-icon" id="resume-icon" style="background: #d35400;" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14,2 14,8 20,8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10,9 9,9 8,9"></polyline>
+                    </svg>
+                </a>
+                <span class="tooltiptext">Resume</span>
+            </div>
+        </div>
+        <!-- Color Bar -->
+        <div class="color-bar">
+            <div class="color-segment" style="background: #22c55e;"></div>
+            <div class="color-segment" style="background: #3b82f6;"></div>
+            <div class="color-segment" style="background: #ec4899;"></div>
+            <div class="color-segment" style="background: #3b82f6;"></div>
+            <div class="color-segment" style="background: #f59e0b;"></div>
+            <div class="color-segment" style="background: #8b5cf6;"></div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+        <p>Made on Earth with ❤️</p>
+    </div>
+    <script>
+        function setDayTheme() {
+            document.body.style.background = 'linear-gradient(135deg, #87CEEB 0%, #E0F7FA 100%)';
+            document.getElementById('card').style.background = '#f8fafc';
+            document.getElementById('card').style.color = '#1f2937';
+            document.getElementById('header').style.color = '#1e293b';
+            document.getElementById('greeting').style.color = '#475569';
+            document.getElementById('description').style.color = '#64748b';
+            document.getElementById('quote').style.color = '#64748b';
+            document.getElementById('company-highlight').style.background = 'linear-gradient(135deg, #fce7f3 0%, #f3e8ff 100%)';
+            document.getElementById('company-name').style.color = '#a855f7';
+            document.getElementById('email-box').style.background = '#e2e8f0';
+            document.getElementById('email-box').style.color = '#334155';
+            document.querySelector('.footer').style.color = '#666666';
+            
+            // Reset color bar for day theme
+            const colorSegments = document.querySelectorAll('.color-segment');
+            colorSegments[0].style.background = '#22c55e';
+            colorSegments[1].style.background = '#3b82f6';
+            colorSegments[2].style.background = '#ec4899';
+            colorSegments[3].style.background = '#3b82f6';
+            colorSegments[4].style.background = '#f59e0b';
+            colorSegments[5].style.background = '#8b5cf6';
+            const socialIcons = document.querySelectorAll('.social-icon');
+            socialIcons.forEach(icon => {
+                icon.style.color = 'white';
+            });
+            const backgroundEffects = document.getElementById('background-effects');
+            backgroundEffects.innerHTML = '';
+            
+            // Add sun with better mobile positioning
+            const sun = document.createElement('div');
+            sun.className = 'sun';
+            sun.style.width = '80px';
+            sun.style.height = '80px';
+            // Better mobile positioning - closer to center but still visible
+            if (window.innerWidth < 768) {
+                sun.style.right = '20px';
+                sun.style.top = '20px';
+            } else {
+                sun.style.right = '10%';
+                sun.style.top = '15%';
+            }
+            backgroundEffects.appendChild(sun);
+            
+            // Add falling leaves
+            for (let i = 0; i < 15; i++) {
+                const leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                leaf.innerHTML = '🍃';
+                leaf.style.left = Math.random() * 100 + 'vw';
+                leaf.style.top = -10 + 'px';
+                leaf.style.opacity = Math.random();
+                leaf.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                leaf.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                backgroundEffects.appendChild(leaf);
+            }
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes fall {
+                    0% {
+                        transform: translateY(-10px);
+                    }
+                    100% {
+                        transform: translateY(100vh);
+                    }
+                }
+                .leaf {
+                    animation: fall linear infinite;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        function setNightTheme() {
+            document.body.style.background = 'linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)';
+            document.getElementById('card').style.background = '#1f2937';
+            document.getElementById('card').style.color = '#fff';
+            document.getElementById('header').style.color = '#fff';
+            document.getElementById('greeting').style.color = '#d1d5db';
+            document.getElementById('description').style.color = '#9ca3af';
+            document.getElementById('quote').style.color = '#9ca3af';
+            document.getElementById('company-highlight').style.background = 'linear-gradient(135deg, #4c3f6d 0%, #3a2f5a 100%)';
+            document.getElementById('company-name').style.color = '#d1d5db';
+            document.getElementById('email-box').style.background = '#374151';
+            document.getElementById('email-box').style.color = '#d1d5db';
+            document.querySelector('.footer').style.color = '#ffffff';
+            
+            // Update color bar for night theme
+            const colorSegments = document.querySelectorAll('.color-segment');
+            colorSegments[0].style.background = '#22c55e'; // Green - keep bright
+            colorSegments[1].style.background = '#60a5fa'; // Lighter blue
+            colorSegments[2].style.background = '#ec4899'; // Pink - keep bright
+            colorSegments[3].style.background = '#60a5fa'; // Lighter blue
+            colorSegments[4].style.background = '#f59e0b'; // Orange/amber
+            colorSegments[5].style.background = '#a855f7'; // Purple
+            const socialIcons = document.querySelectorAll('.social-icon');
+            socialIcons.forEach(icon => {
+                icon.style.color = 'white';
+            });
+            const backgroundEffects = document.getElementById('background-effects');
+            backgroundEffects.innerHTML = '';
+            
+            // Add moon with better mobile positioning
+            const moon = document.createElement('div');
+            moon.className = 'moon';
+            moon.style.width = '60px';
+            moon.style.height = '60px';
+            // Better mobile positioning - closer to center but still visible
+            if (window.innerWidth < 768) {
+                moon.style.right = '20px';
+                moon.style.top = '20px';
+            } else {
+                moon.style.right = '10%';
+                moon.style.top = '15%';
+            }
+            moon.style.backgroundColor = '#f5f3ce';
+            moon.style.boxShadow = '0 0 30px #f5f3ce';
+            backgroundEffects.appendChild(moon);
+            
+            // Add stars
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 2 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                backgroundEffects.appendChild(star);
+            }
+            
+            // Add snowflakes
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = '❄';
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.top = -10 + 'px';
+                snowflake.style.opacity = Math.random();
+                snowflake.style.fontSize = (Math.random() * 10 + 5) + 'px';
+                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                backgroundEffects.appendChild(snowflake);
+            }
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes snowfall {
+                    0% {
+                        transform: translateY(-10px);
+                    }
+                    100% {
+                        transform: translateY(100vh);
+                    }
+                }
+                .snowflake {
+                    animation: snowfall linear infinite;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        function updateTheme() {
+            const now = new Date();
+            const hours = now.getHours();
+            if (hours > 6 && hours < 18) {
+                setDayTheme();
+            } else {
+                setNightTheme();
+            }
+        }
+        
+        // Update theme on resize to adjust sun/moon position
+        window.addEventListener('resize', updateTheme);
+        document.addEventListener('DOMContentLoaded', updateTheme);
+    </script>
+</body>
+</html>
