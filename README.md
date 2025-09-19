@@ -11,25 +11,8 @@ This project deploys a personal **portfolio website** on **AWS Elastic Kubernete
 ---
 
 ## 📂 Project Structure
-
-portfolio-k8s-project/
-│── website/
-│ ├── index.html # Portfolio frontend
-│ ├── Dockerfile # Docker image build
-│ ├── images/ # Assets for portfolio
-│
-│── k8s/
-│ ├── deployment.yaml # K8s Deployment for website
-│ ├── service.yaml # K8s Service (LoadBalancer)
-│
-│── terraform/
-│ ├── main.tf # Terraform infra (EKS + ECR)
-│ ├── variables.tf # Variables (region, cluster name)
-│ ├── outputs.tf # Outputs (ECR URL, Cluster info)
-│
-│── .github/
-│ └── workflows/
-│ └── deploy.yml # GitHub Actions CI/CD
+![Project Structure Diagram](images/project-structure.png)
+   
 
 
 
